@@ -4,17 +4,23 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Math.toRadians
+import java.util.*
+import kotlin.math.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -122,9 +128,23 @@ class MainActivity : AppCompatActivity() {
                     if(location!=null){
                         val currentLat = location.latitude
                         val currentLong = location.longitude
+                        val distance = calculateDistance(
+                                currentLat,
+                                currentLong,
+                                getAddresses()[0].latitude,
+                                getAddresses()[0].longitude
+                        ) * 1000
 
                         textViewCheckInSuccess.visibility = View.VISIBLE
                         textViewCheckInSuccess.text = getString(R.string.lat_long,currentLat,currentLong)
+
+                        Log.d("coba","size: ${getAddresses().size}")
+                        Log.d("coba","distance: $distance")
+
+                        for(address: Address in getAddresses()){
+                            Log.d("coba","lat: ${address.latitude}")
+                        }
+
                     }else{
                         Toast.makeText(this,getString(R.string.get_location_failed),Toast.LENGTH_SHORT).show()
                     }
@@ -137,5 +157,19 @@ class MainActivity : AppCompatActivity() {
         }else{
             requestPermission()
         }
+    }
+    private fun getAddresses() : List<Address>{
+        val destinationPlace = "Lembaga Layanan Pendidikan Tinggi (LLDIKTI) Wilayah XI Kalimantan"
+        val geocode = Geocoder(this, Locale.getDefault())
+        return geocode.getFromLocationName(destinationPlace, 100)
+    }
+
+    private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val r = 6372.8 // in kilometers
+        val radiansLat1 = toRadians(lat1)
+        val radiansLat2 = toRadians(lat2)
+        val dLat = toRadians(lat2 - lat1)
+        val dLon = toRadians(lon2 - lon1)
+        return 2 * r * asin(sqrt(sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(radiansLat1) * cos(radiansLat2)))
     }
 }
