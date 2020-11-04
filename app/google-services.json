@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624586649233",
+    "firebase_url": "https://codepolitan-attendance-apps.firebaseio.com",
+    "project_id": "codepolitan-attendance-apps",
+    "storage_bucket": "codepolitan-attendance-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624586649233:android:bc3f538383eddd4b8a1930",
+        "android_client_info": {
+          "package_name": "com.mirzayogy.codepolitanattendanceapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624586649233-aa09lqfl1jog9hgj9p8rag3pgkmh9bp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcUnIqP6M1WDLhoLELuM-als-KN8Au0KM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624586649233-aa09lqfl1jog9hgj9p8rag3pgkmh9bp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
