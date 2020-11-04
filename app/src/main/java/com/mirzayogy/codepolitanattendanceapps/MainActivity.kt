@@ -119,12 +119,15 @@ class MainActivity : AppCompatActivity() {
         if(checkPermission()){
             if(isLocationEnabled()){
                 LocationServices.getFusedLocationProviderClient(this).lastLocation.addOnSuccessListener { location ->
-                    val currentLat = location.latitude
-                    val currentLong = location.longitude
+                    if(location!=null){
+                        val currentLat = location.latitude
+                        val currentLong = location.longitude
 
-                    textViewCheckInSuccess.visibility = View.VISIBLE
-                    textViewCheckInSuccess.text = getString(R.string.lat_long,currentLat,currentLong)
-
+                        textViewCheckInSuccess.visibility = View.VISIBLE
+                        textViewCheckInSuccess.text = getString(R.string.lat_long,currentLat,currentLong)
+                    }else{
+                        Toast.makeText(this,getString(R.string.get_location_failed),Toast.LENGTH_SHORT).show()
+                    }
                     stopScanLocation()
                 }
             }else{
