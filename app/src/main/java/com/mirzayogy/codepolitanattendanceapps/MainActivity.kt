@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkPermissionLocation() {
         if(checkPermission()){
             if(!isLocationEnabled()){
-                Toast.makeText(this,"Aktifkan izin lokasi",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.please_activate_location_permission),Toast.LENGTH_SHORT).show()
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
         }else{
@@ -84,10 +85,10 @@ class MainActivity : AppCompatActivity() {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED ||
                     grantResults[1] == PackageManager.PERMISSION_GRANTED){
 
-                Toast.makeText(this,"Izin Diberikan",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.permission_granted),Toast.LENGTH_SHORT).show()
 
                 if(!isLocationEnabled()){
-                    Toast.makeText(this,"Aktifkan izin lokasi",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,getString(R.string.please_activate_location_permission),Toast.LENGTH_SHORT).show()
                     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 }
             }
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         fabCheckIn.setOnClickListener{
             loadScanLocation()
             Handler(Looper.getMainLooper()).postDelayed({
-                stopScanLocation()
+                getLastLocation()
             },4000)
         }
     }
@@ -112,5 +113,26 @@ class MainActivity : AppCompatActivity() {
     private fun stopScanLocation(){
         rippleBackground.stopRippleAnimation()
         textViewScanning.visibility = View.GONE
+    }
+
+    private fun getLastLocation(){
+        if(checkPermission()){
+            if(isLocationEnabled()){
+                LocationServices.getFusedLocationProviderClient(this).lastLocation.addOnSuccessListener { location ->
+                    val currentLat = location.latitude
+                    val currentLong = location.longitude
+
+                    textViewCheckInSuccess.visibility = View.VISIBLE
+                    textViewCheckInSuccess.text = getString(R.string.lat_long,currentLat,currentLong)
+
+                    stopScanLocation()
+                }
+            }else{
+                Toast.makeText(this,getString(R.string.please_activate_location_permission),Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+        }else{
+            requestPermission()
+        }
     }
 }

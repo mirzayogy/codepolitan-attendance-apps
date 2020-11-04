@@ -3,4 +3,7 @@
     <string name="check_in">Check-in</string>
     <string name="scanning">Scanning..</string>
     <string name="check_in_success">Check-in success</string>
+    <string name="lat_long">Lat: %1$f, Long: %2$f</string>
+    <string name="please_activate_location_permission">Please activate location permission</string>
+    <string name="permission_granted">Permission granted</string>
 </resources>
