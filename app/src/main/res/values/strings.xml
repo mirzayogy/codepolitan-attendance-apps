@@ -7,4 +7,7 @@
     <string name="please_activate_location_permission">Please activate location permission</string>
     <string name="get_location_failed">Get Location Failed</string>
     <string name="permission_granted">Permission granted</string>
+    <string name="please_input_your_name">Please input your name</string>
+    <string name="name">Name</string>
+    <string name="out_of_range">Out of range</string>
 </resources>

@@ -12,12 +12,15 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_form.view.*
 import java.lang.Math.toRadians
 import java.util.*
 import kotlin.math.*
@@ -135,14 +138,11 @@ class MainActivity : AppCompatActivity() {
                                 getAddresses()[0].longitude
                         ) * 1000
 
-                        textViewCheckInSuccess.visibility = View.VISIBLE
-                        textViewCheckInSuccess.text = getString(R.string.lat_long,currentLat,currentLong)
-
-                        Log.d("coba","size: ${getAddresses().size}")
-                        Log.d("coba","distance: $distance")
-
-                        for(address: Address in getAddresses()){
-                            Log.d("coba","lat: ${address.latitude}")
+                        if(distance<32000.0){
+                            showDialogForm()
+                        }else{
+                            textViewCheckIn.visibility = View.VISIBLE
+                            textViewCheckIn.text = getString(R.string.out_of_range)
                         }
 
                     }else{
@@ -171,5 +171,21 @@ class MainActivity : AppCompatActivity() {
         val dLat = toRadians(lat2 - lat1)
         val dLon = toRadians(lon2 - lon1)
         return 2 * r * asin(sqrt(sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(radiansLat1) * cos(radiansLat2)))
+    }
+
+    private fun showDialogForm(){
+        val dialogForm = LayoutInflater.from(this).inflate(R.layout.dialog_form,null)
+        AlertDialog.Builder(this)
+                .setView(dialogForm)
+                .setCancelable(false)
+                .setPositiveButton("Submit") { dialog, _ ->
+                    val name = dialogForm.editTextName.text.toString()
+                    Toast.makeText(this, "name : $name", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
     }
 }
