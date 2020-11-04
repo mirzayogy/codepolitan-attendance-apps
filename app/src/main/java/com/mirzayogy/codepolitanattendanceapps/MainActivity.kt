@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -19,9 +18,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_form.view.*
 import java.lang.Math.toRadians
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.*
 
@@ -180,12 +181,34 @@ class MainActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setPositiveButton("Submit") { dialog, _ ->
                     val name = dialogForm.editTextName.text.toString()
-                    Toast.makeText(this, "name : $name", Toast.LENGTH_SHORT).show()
+                    sendDataToFirebase(name)
                     dialog.dismiss()
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
+    }
+
+    private fun sendDataToFirebase(name: String) {
+        val user = User(name,getCurrentDate())
+
+        val database = FirebaseDatabase.getInstance()
+        val attendanceRef = database.getReference("log_attendance")
+
+        attendanceRef.child(name).setValue(user)
+            .addOnSuccessListener {
+                textViewCheckInSuccess.visibility = View.VISIBLE
+                textViewCheckInSuccess.text = getString(R.string.check_in_success)
+            }
+            .addOnFailureListener{
+                Toast.makeText(this,"$it.message",Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun getCurrentDate() : String{
+        val currentTime = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+        return dateFormat.format(currentTime)
     }
 }
