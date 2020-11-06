@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:elevation="0dp"
+        app:elevation="0dp"
         >
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbSignUp"
@@ -65,6 +65,8 @@
                 app:passwordToggleTint="@color/colorPrimary"
                 app:hintEnabled="false"
                 android:gravity="center_vertical"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -89,6 +91,8 @@
                 app:passwordToggleTint="@color/colorPrimary"
                 app:hintEnabled="false"
                 android:gravity="center_vertical"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,6 +111,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_btn_primary"

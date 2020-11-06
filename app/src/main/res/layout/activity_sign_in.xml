@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:elevation="0dp"
+        app:elevation="0dp"
         >
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbSignIn"
@@ -63,13 +63,14 @@
                 app:passwordToggleTint="@color/colorPrimary"
                 app:hintEnabled="false"
                 android:gravity="center_vertical"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextPasswordSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:background="@drawable/bg_edit_text"
                     android:hint="@string/password"
                     android:inputType="textPassword"
@@ -81,6 +82,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/btnForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -94,6 +96,7 @@
                 />
 
             <Button
+                android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_btn_primary"
@@ -112,7 +115,6 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 />
-
                 <LinearLayout
                     android:id="@+id/btnFacebookSignIn"
                     android:layout_width="match_parent"
