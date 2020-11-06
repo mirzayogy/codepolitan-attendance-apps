@@ -14,14 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CodepolitanAttendanceApps">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".AuthActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<!--                <action android:name="android.intent.action.VIEW" />-->
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>

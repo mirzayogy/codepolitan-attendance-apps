@@ -7,7 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#1a237e</color>
-    <color name="colorPrimaryDark">#000051</color>
-    <color name="colorAccent">#534bae</color>
+    <color name="colorPrimaryOld">#1a237e</color>
+    <color name="colorPrimaryDarkOld">#000051</color>
+    <color name="colorAccentOld">#534bae</color>
+    <color name="colorPrimary">#0097a7</color>
+    <color name="colorPrimaryDark">#006978</color>
+    <color name="colorAccent">#56c8d8</color>
+    <color name="color_facebook">#3B5998</color>
 </resources>

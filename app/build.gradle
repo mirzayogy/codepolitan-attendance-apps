@@ -48,4 +48,4 @@ dependencies {
 
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
-}
+}   
