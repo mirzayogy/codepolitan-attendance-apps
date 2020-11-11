@@ -3,18 +3,33 @@ package com.mirzayogy.codepolitanattendanceapps
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.Toast
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import java.util.regex.Pattern
 
 class SignInActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         initActionBar()
+        initFirebaseAuth()
 
         btnSignIn.setOnClickListener {
-            val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+
+            val email = editTextEmailSignIn.text.toString()
+            val password = editTextPasswordSignIn.text.toString()
+
+            if(checkValidation(email,password)){
+                loginToServer(email,password)
+            }
         }
 
         btnForgotPassword.setOnClickListener {
@@ -26,6 +41,51 @@ class SignInActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun loginToServer(email: String, password: String) {
+        val credential = EmailAuthProvider.getCredential(email,password)
+        firebaseAuth(credential)
+    }
+
+    private fun firebaseAuth(credential: AuthCredential) {
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener {
+                    CustomDialog.hideLoading()
+                    if(it.isSuccessful){
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                        finishAffinity()
+                    }else{
+                        Toast.makeText(this,getString(R.string.sign_in_failed),Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                }
+    }
+
+    private fun checkValidation(email: String, password: String): Boolean {
+        if(email.isEmpty()){
+            editTextEmailSignIn.error = getString(R.string.please_fill_in_your_email)
+            editTextEmailSignIn.requestFocus()
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextEmailSignIn.error = getString(R.string.please_use_valid_email)
+            editTextEmailSignIn.requestFocus()
+        }else if(password.isEmpty()){
+            editTextPasswordSignIn.error = getString(R.string.please_fill_in_your_password)
+            editTextPasswordSignIn.requestFocus()
+        }else if(password.length < 6){
+            editTextPasswordSignIn.error = getString(R.string.fill_in_password_at_least_6_characters)
+            editTextPasswordSignIn.requestFocus()
+        }else{
+            return true
+        }
+        CustomDialog.hideLoading()
+        return false
+    }
+
+    private fun initFirebaseAuth() {
+        auth = FirebaseAuth.getInstance()
     }
 
     private fun initActionBar() {

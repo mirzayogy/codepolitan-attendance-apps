@@ -52,22 +52,22 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun checkValidation(email: String, password: String, confirmPassword: String): Boolean {
         if(email.isEmpty()){
-            editTextEmailSignUp.error = "Please fill in your email"
+            editTextEmailSignUp.error = getString(R.string.please_fill_in_your_email)
             editTextEmailSignUp.requestFocus()
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextEmailSignUp.error = "Please use valid email"
+            editTextEmailSignUp.error = getString(R.string.please_use_valid_email)
             editTextEmailSignUp.requestFocus()
         }else if(password.isEmpty()){
-            editTextPasswordSignUp.error = "Please fill in your password"
+            editTextPasswordSignUp.error = getString(R.string.please_fill_in_your_password)
             editTextPasswordSignUp.requestFocus()
         }else if(confirmPassword.isEmpty()){
-            editTextConfirmPasswordSignUp.error  = "Please fill in your confirmation password"
+            editTextConfirmPasswordSignUp.error  = getString(R.string.please_fill_in_your_confirmation_password)
             editTextConfirmPasswordSignUp.requestFocus()
         }else if(password != confirmPassword) {
-            editTextConfirmPasswordSignUp.error = "Your password doesn't match"
+            editTextConfirmPasswordSignUp.error = getString(R.string.your_password_does_not_match)
             editTextConfirmPasswordSignUp.requestFocus()
         }else if(editTextPasswordSignUp.text.toString().length < 6){
-            editTextPasswordSignUp.error = "Fill in Password at least 6 characters"
+            editTextPasswordSignUp.error = getString(R.string.fill_in_password_at_least_6_characters)
             editTextPasswordSignUp.requestFocus()
         }else{
             return true

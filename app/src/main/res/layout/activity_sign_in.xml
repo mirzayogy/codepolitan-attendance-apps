@@ -115,35 +115,34 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 />
-                <LinearLayout
-                    android:id="@+id/btnFacebookSignIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_btn_facebook"
-                    android:elevation="2dp"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_facebook"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/facebook"
-                        />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/facebook"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif-medium"
-                        />
-                </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnFacebookSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_btn_facebook"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/facebook"
+                    android:src="@drawable/ic_facebook" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/facebook"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnGoogleSignIn"
